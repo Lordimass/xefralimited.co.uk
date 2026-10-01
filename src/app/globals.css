@@ -17,6 +17,7 @@ body {
   min-height: 100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
@@ -28,6 +29,15 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1000px;
+  padding: 120px 60px;
+
+  @media (max-width: 800px) {
+    padding: 48px 24px;
+  }
 }
 
 * {
@@ -43,35 +53,4 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
-}
-
-
-/*=============== FOOTER ===============*/
-.footer {
-  background-color: var(--background);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-
-  justify-self: flex-end;
-  align-items: center;
-  justify-content: space-around;
-}
-
-.policy-separator {
-  color: var(--bs-gray-500);
-  margin-left: 0.5ch;
-  margin-right: 0.5ch;
-}
-
-.footer-company-information {
-
-  font-size: 11px;
-}
-
-/*=============== HEADER ===============*/
-.navbar-brand {
-  display: flex;
-  align-items: center;
-  gap: 1rem
 }

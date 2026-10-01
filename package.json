@@ -3,13 +3,17 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "netlifydev": "netlify dev",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "eslint"
   },
   "dependencies": {
+    "@mdxeditor/editor": "^4.3.1",
+    "@supabase/ssr": "^0.12.7",
     "bootstrap": "^5.3.8",
+    "netlify-cli": "^27.10.2",
     "next": "16.3.7",
     "react": "19.2.8",
     "react-bootstrap": "^2.10.10",

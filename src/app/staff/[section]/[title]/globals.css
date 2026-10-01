@@ -1,0 +1,41 @@
+#save-button-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    justify-content: right;
+    margin-bottom: 5px;
+
+    @media (max-width: 800px) {
+        flex-direction: column;
+        align-items: flex-end;
+
+        #save-button-container-separator {
+            display: none;
+        }
+    }
+}
+
+.mdxeditor {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+
+    .mdxeditor-diff-source-wrapper, .mdxeditor-rich-text-editor, .mdxeditor-diff-editor, .cm-mergeView,
+    .cm-mergeViewEditors, .cm-mergeViewEditor, .cm-editor, .cm-sourceView {
+        display: flex;
+        flex: 1;
+    }
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.dark-toolbar {
+    background: #000;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.hidden {
+    display: none;
+}
