@@ -18,10 +18,12 @@ export default async function Page({params}: {
 
     // Fetch content
     const { section, title } = await params
+    console.log(decodeURI(title))
+    console.log(decodePath(title))
     const {data, error} = await supabase.schema(SUPABASE_SCHEMA).from("pages")
         .select("*")
-        .eq("section", section)
-        .eq("title", title)
+        .eq("section", decodePath(section))
+        .eq("title", decodePath(title))
     if (error) {
         console.error(error);
         return "Something went wrong!"
@@ -31,4 +33,11 @@ export default async function Page({params}: {
     return <div id={styles.content}>
         <Content page={page} editable={editable}/>
     </div>
+}
+
+function decodePath(path: string) {
+    return decodeURI(path)
+        .replaceAll("%2C", ",")
+        .replaceAll("%26", "&")
+
 }

@@ -1,13 +1,16 @@
 import Navbar from "react-bootstrap/esm/Navbar";
-import {Container, DropdownItem, Nav, NavbarBrand} from "react-bootstrap";
+import {Container, DropdownItem, NavbarBrand} from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Image from "next/image";
 import "./Header.css"
-import {createClient} from "@/lib/supabase/server";
-import {SUPABASE_SCHEMA} from "@/lib/consts";
+import {createClient, getUserProfile} from "@/lib/supabase/server";
+import {PERMISSIONS, SUPABASE_SCHEMA} from "@/lib/consts";
 import {InfoPage} from "@/lib/types";
+import CreateNewPage from "@/components/Header/CreateNewPage";
 
 export async function Header() {
+
+    // Fetch and group pages
     const supabase = await createClient();
     const {data, error} = await supabase.schema(SUPABASE_SCHEMA)
         .from("pages")
@@ -23,7 +26,12 @@ export async function Header() {
         groupedPages[page.section] = section
     }
 
-    return (<Navbar expand="lg" className={"bg-body-primary"}>
+    // Check if user is an editor
+    const profile = (await getUserProfile(supabase))!
+    const isEditor = profile.permissions.includes(PERMISSIONS.pages.write)
+        || profile.permissions.includes(PERMISSIONS.admin)
+
+    return (<><Navbar expand="lg" className={"bg-body-primary"}>
             <Container>
                 <NavbarBrand href={"/"}>
                     <Image src={"/logo.webp"} alt={"Xefra Ltd."} width={48} height={48}/> <h2>Staff Hub</h2>
@@ -35,9 +43,10 @@ export async function Header() {
                         </DropdownItem>
                     )}
                 </NavDropdown>)}
+                {isEditor ? <CreateNewPage/> : null}
             </Container>
         </Navbar>
-    );
+    </>);
 }
 
 export function BlankHeader() {
