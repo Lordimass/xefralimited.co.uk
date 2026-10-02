@@ -12,7 +12,7 @@ import {
 } from "@mdxeditor/editor";
 import Button from "react-bootstrap/Button";
 import {InfoPage} from "@/lib/types";
-import {useRef} from "react";
+import {useRef, useState} from "react";
 import {createClient} from "@/lib/supabase/client";
 import {SUPABASE_SCHEMA} from "@/lib/consts";
 import {FormControl} from "react-bootstrap";
@@ -24,6 +24,7 @@ export default function Content({page, editable}: { page: InfoPage, editable: bo
     const pageTitleInputRef = useRef<HTMLInputElement>(null);
     const supabase = createClient()
 
+    const [delConfirmState, setDelConfirmState] = useState<boolean>(false);
     const sectionTitleEditable = !(page.section === "Home" && page.title === "Welcome")
 
     async function save() {
@@ -45,6 +46,24 @@ export default function Content({page, editable}: { page: InfoPage, editable: bo
             return
         }
         window.location.pathname = `/staff/${pageSectionInput.value}/${pageTitleInput.value}`
+    }
+
+    async function del() {
+        if (!delConfirmState) {
+            setDelConfirmState(true);
+            setTimeout(() => setDelConfirmState(false), 3000);
+            return;
+        }
+
+        const {data, error} = await supabase.schema(SUPABASE_SCHEMA)
+            .from("pages")
+            .delete()
+            .eq("id", page.id)
+        if (error) {
+            console.error(error);
+            return
+        }
+        window.location.pathname = `/staff/Home/Welcome`
     }
 
     return <>
@@ -101,5 +120,8 @@ export default function Content({page, editable}: { page: InfoPage, editable: bo
 
             markdown={page.content}
         />
+        <Button variant={delConfirmState ? "danger" : "outline-danger"} onClick={del}>
+            {delConfirmState ? "Are you sure?" : "Delete Page"}
+        </Button>
     </>
 }
