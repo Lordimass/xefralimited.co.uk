@@ -36,7 +36,7 @@ main {
   padding: 120px 60px;
 
   @media (max-width: 800px) {
-    padding: 48px 24px;
+    padding: 48px 16px;
   }
 }
 
@@ -53,4 +53,14 @@ a {
 
 h1, h2, h3, h4, h5, h6 {
   margin: 0;
+}
+
+#content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  background-color: var(--bs-body-bg);
+  padding: 10px;
+  border-radius: 1rem;
+  width: 100%;
 }

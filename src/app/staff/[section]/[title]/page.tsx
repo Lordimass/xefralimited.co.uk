@@ -2,7 +2,6 @@ import {createClient, getMfaUser, getUserProfile} from "@/lib/supabase/server";
 import {PERMISSIONS, SUPABASE_SCHEMA} from "@/lib/consts";
 import {notFound, redirect} from "next/navigation";
 import Content from "@/app/staff/[section]/[title]/Content";
-import styles from "./page.module.css"
 import "./globals.css"
 import {InfoPage} from "@/lib/types";
 
@@ -30,7 +29,7 @@ export default async function Page({params}: {
     } else if (data.length == 0) notFound()
     const page: InfoPage = data[0]
 
-    return <div id={styles.content}>
+    return <div id={"content"}>
         <Content page={page} editable={editable}/>
     </div>
 }
