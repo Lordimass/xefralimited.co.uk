@@ -51,7 +51,10 @@ export default function CreateNewPage() {
     }
 
     return (<>
-        <Button onClick={handleShow}>Create New Page</Button>
+        <NavItem>
+            <Button onClick={handleShow}>Create New Page</Button>
+        </NavItem>
+
 
         <Offcanvas show={showOffCanvas} onHide={handleClose}>
             <Offcanvas.Header closeButton>

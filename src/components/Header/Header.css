@@ -8,3 +8,11 @@
     align-items: center;
     gap: 1rem
 }
+
+#responsive-navbar-nav {
+    justify-content: right;
+}
+
+.nav-item {
+    margin: 10px 1ch;
+}

@@ -1,7 +1,8 @@
 import Navbar from "react-bootstrap/esm/Navbar";
-import {Container, DropdownItem, NavbarBrand} from "react-bootstrap";
+import {Container, DropdownItem, NavbarBrand, NavbarToggle} from "react-bootstrap";
 import NavDropdown from "react-bootstrap/NavDropdown"
 import Image from "next/image";
+import NavbarCollapse from "react-bootstrap/NavbarCollapse"
 import "./Header.css"
 import {createClient, getUserProfile} from "@/lib/supabase/server";
 import {PERMISSIONS, SUPABASE_SCHEMA} from "@/lib/consts";
@@ -36,14 +37,17 @@ export async function Header() {
                 <NavbarBrand href={"/"}>
                     <Image src={"/logo.webp"} alt={"Xefra Ltd."} width={48} height={48}/> <h2>Staff Hub</h2>
                 </NavbarBrand>
-                {Object.keys(groupedPages).map(section => <NavDropdown key={section} title={section}>
-                    {groupedPages[section].map(title =>
-                        <DropdownItem href={`/staff/${section}/${title.title}`} key={title.title}>
-                            {title.title}
-                        </DropdownItem>
-                    )}
-                </NavDropdown>)}
-                {isEditor ? <CreateNewPage/> : null}
+                <NavbarToggle aria-controls="responsive-navbar-nav" />
+                <NavbarCollapse id="responsive-navbar-nav">
+                    {Object.keys(groupedPages).map(section => <NavDropdown key={section} title={section}>
+                        {groupedPages[section].map(title =>
+                            <DropdownItem href={`/staff/${section}/${title.title}`} key={title.title}>
+                                {title.title}
+                            </DropdownItem>
+                        )}
+                    </NavDropdown>)}
+                    {isEditor ? <CreateNewPage/> : null}
+                </NavbarCollapse>
             </Container>
         </Navbar>
     </>);
